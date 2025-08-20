@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_logo_clouds",
+  "info": { "displayName": "Logo Cloud", "description": "Grid of logos" },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.logo-item",
+      "required": true
+    }
+  }
+}

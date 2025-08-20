@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_blocks_testimonials",
+  "info": { "displayName": "Testimonial", "description": "Quote with author" },
+  "options": {},
+  "attributes": {
+    "quote": { "type": "richtext", "required": true },
+    "authorName": { "type": "string", "required": true },
+    "authorRole": { "type": "string" },
+    "avatar": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "logo": { "type": "media", "multiple": false, "allowedTypes": ["images"] }
+  }
+}

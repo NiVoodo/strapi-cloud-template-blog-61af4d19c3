@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_feature_lists",
+  "info": { "displayName": "Feature List", "description": "Grid of features" },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "columns": { "type": "integer", "default": 3, "min": 2, "max": 4 },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.feature-item",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_blocks_stat_items",
+  "info": { "displayName": "Stat Item", "description": "Label + value" },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true },
+    "value": { "type": "string", "required": true }
+  }
+}

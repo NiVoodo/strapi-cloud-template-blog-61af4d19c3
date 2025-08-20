@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_accordion_faqs",
+  "info": { "displayName": "Accordion / FAQ", "description": "List of Accordion items" },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.accordion-item",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_cta_banners",
+  "info": { "displayName": "CTA Banner", "description": "Centered call-to-action section" },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "subtitle": { "type": "string" },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.button"
+    }
+  }
+}

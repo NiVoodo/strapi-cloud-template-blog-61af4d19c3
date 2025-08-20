@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_blocks_logo_items",
+  "info": { "displayName": "Logo Item", "description": "Single logo with optional link" },
+  "options": {},
+  "attributes": {
+    "media": { "type": "media", "multiple": false, "allowedTypes": ["images"], "required": true },
+    "href": { "type": "string" }
+  }
+}
