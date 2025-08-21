@@ -227,6 +227,39 @@ export interface BlocksPricingTable extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksRichtextColumn extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_richtext_column';
+  info: {
+    description: 'Einzelne Spalte mit Breite & Inhalt';
+    displayName: 'Richtext Column';
+    icon: 'columns';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.DefaultTo<''>;
+    width: Schema.Attribute.Enumeration<
+      ['1/6', '1/4', '1/3', '1/2', '2/3', '3/4', '5/6', '1']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'1/2'>;
+  };
+}
+
+export interface BlocksRichtextColumns extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_richtext_columns';
+  info: {
+    description: 'Mehrspaltiger Richtext mit w\u00E4hlbaren Spaltenbreiten';
+    displayName: 'Richtext Columns';
+    icon: 'layer-group';
+  };
+  attributes: {
+    columns: Schema.Attribute.Component<'blocks.richtext-column', true> &
+      Schema.Attribute.Required;
+    gap: Schema.Attribute.Enumeration<['sm', 'md', 'lg', 'xl']> &
+      Schema.Attribute.DefaultTo<'md'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksStatItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_stat_items';
   info: {
@@ -393,6 +426,8 @@ declare module '@strapi/strapi' {
       'blocks.pricing-feature': BlocksPricingFeature;
       'blocks.pricing-plan': BlocksPricingPlan;
       'blocks.pricing-table': BlocksPricingTable;
+      'blocks.richtext-column': BlocksRichtextColumn;
+      'blocks.richtext-columns': BlocksRichtextColumns;
       'blocks.stat-item': BlocksStatItem;
       'blocks.stats': BlocksStats;
       'blocks.step-item': BlocksStepItem;

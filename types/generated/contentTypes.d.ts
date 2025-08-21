@@ -564,6 +564,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.stats',
         'blocks.steps',
         'blocks.pricing-table',
+        'blocks.richtext-columns',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
