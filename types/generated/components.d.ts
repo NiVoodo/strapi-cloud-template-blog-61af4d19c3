@@ -252,6 +252,7 @@ export interface BlocksRichtextColumns extends Struct.ComponentSchema {
     icon: 'layer-group';
   };
   attributes: {
+    backgorund: Schema.Attribute.Boolean;
     columns: Schema.Attribute.Component<'blocks.richtext-column', true> &
       Schema.Attribute.Required;
     gap: Schema.Attribute.Enumeration<['sm', 'md', 'lg', 'xl']> &

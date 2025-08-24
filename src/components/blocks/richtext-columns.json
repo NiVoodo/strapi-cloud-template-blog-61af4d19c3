@@ -1,4 +1,3 @@
-
 {
   "collectionName": "components_blocks_richtext_columns",
   "info": {
@@ -7,17 +6,27 @@
     "icon": "layer-group"
   },
   "attributes": {
-    "title": { "type": "string" },
+    "title": {
+      "type": "string"
+    },
     "columns": {
       "type": "component",
-      "repeatable": true,
       "component": "blocks.richtext-column",
+      "repeatable": true,
       "required": true
     },
     "gap": {
       "type": "enumeration",
-      "enum": ["sm", "md", "lg", "xl"],
-      "default": "md"
+      "default": "md",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ]
+    },
+    "backgorund": {
+      "type": "boolean"
     }
   }
 }
