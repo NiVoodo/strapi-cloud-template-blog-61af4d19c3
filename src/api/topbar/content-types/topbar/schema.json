@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "topbars",
+  "info": {
+    "singularName": "topbar",
+    "pluralName": "topbars",
+    "displayName": "Topbar",
+    "description": "Schmale Zeile über dem Header (z.B. Versandhinweis) aus Icon+Text-Items"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "backgroundColor": {
+      "type": "string",
+      "default": "#111827"
+    },
+    "items": {
+      "type": "dynamiczone",
+      "components": ["ui.icon-text"]
+    }
+  }
+}

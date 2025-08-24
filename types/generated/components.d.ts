@@ -409,6 +409,19 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface UiIconText extends Struct.ComponentSchema {
+  collectionName: 'components_ui_icon_texts';
+  info: {
+    description: 'Ein Icon mit kurzem Text f\u00FCr die Topbar';
+    displayName: 'Icon & Text';
+    icon: 'bullhorn';
+  };
+  attributes: {
+    icon: Schema.Attribute.Media<'images'>;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -440,6 +453,7 @@ declare module '@strapi/strapi' {
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'ui.icon-text': UiIconText;
     }
   }
 }
