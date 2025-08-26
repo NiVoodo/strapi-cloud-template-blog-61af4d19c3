@@ -125,6 +125,30 @@ export interface BlocksFeatureList extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksGoogleReviewsSlider extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_google_reviews_sliders';
+  info: {
+    description: 'Slider mit Google-Bewertungen (aus Strapi gespeist)';
+    displayName: 'Google Reviews Slider';
+  };
+  attributes: {
+    maxReviews: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
+    placeId: Schema.Attribute.String & Schema.Attribute.Required;
+    showWriteReview: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksHeroBanner extends Struct.ComponentSchema {
   collectionName: 'components_blocks_hero_banners';
   info: {
@@ -433,6 +457,7 @@ declare module '@strapi/strapi' {
       'blocks.cta-banner': BlocksCtaBanner;
       'blocks.feature-item': BlocksFeatureItem;
       'blocks.feature-list': BlocksFeatureList;
+      'blocks.google-reviews-slider': BlocksGoogleReviewsSlider;
       'blocks.hero-banner': BlocksHeroBanner;
       'blocks.logo-cloud': BlocksLogoCloud;
       'blocks.logo-item': BlocksLogoItem;

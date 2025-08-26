@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_google_reviews_sliders",
+  "info": {
+    "displayName": "Google Reviews Slider",
+    "description": "Slider mit Google-Bewertungen (aus Strapi gespeist)"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "subtitle": { "type": "string" },
+    "placeId": { "type": "string", "required": true },
+    "showWriteReview": { "type": "boolean", "default": true },
+    "maxReviews": { "type": "integer", "default": 5, "min": 1, "max": 5 }
+  }
+}

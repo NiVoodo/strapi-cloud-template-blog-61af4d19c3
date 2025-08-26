@@ -665,6 +665,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.stats',
         'blocks.steps',
         'blocks.pricing-table',
+        'blocks.google-reviews-slider',
         'blocks.richtext-columns',
       ]
     >;
