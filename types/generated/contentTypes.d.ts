@@ -538,6 +538,107 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiGooglePlaceGooglePlace extends Struct.CollectionTypeSchema {
+  collectionName: 'google_places';
+  info: {
+    description: 'Ort-Zusammenfassung: Name, Durchschnitt, Anzahl, letzter Sync';
+    displayName: 'Google Place';
+    pluralName: 'google-places';
+    singularName: 'google-place';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
+    lastSyncedAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::google-place.google-place'
+    > &
+      Schema.Attribute.Private;
+    placeId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userRatingCount: Schema.Attribute.Integer;
+  };
+}
+
+export interface ApiGoogleReviewGoogleReview
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'google_reviews';
+  info: {
+    description: 'Einzelne Google-Bewertung (Places/GBP)';
+    displayName: 'Google Review';
+    pluralName: 'google-reviews';
+    singularName: 'google-review';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    authorName: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    externalId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    languageCode: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::google-review.google-review'
+    > &
+      Schema.Attribute.Private;
+    placeId: Schema.Attribute.String & Schema.Attribute.Required;
+    profilePhotoUrl: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    publishTime: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
+    relativeTimeDescription: Schema.Attribute.String;
+    source: Schema.Attribute.Enumeration<['places', 'gbp']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'places'>;
+    text: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -1127,6 +1228,8 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
+      'api::google-place.google-place': ApiGooglePlaceGooglePlace;
+      'api::google-review.google-review': ApiGoogleReviewGoogleReview;
       'api::page.page': ApiPagePage;
       'api::topbar.topbar': ApiTopbarTopbar;
       'plugin::content-releases.release': PluginContentReleasesRelease;

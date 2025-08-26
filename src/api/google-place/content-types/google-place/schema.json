@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "google_places",
+  "info": {
+    "singularName": "google-place",
+    "pluralName": "google-places",
+    "displayName": "Google Place",
+    "description": "Ort-Zusammenfassung: Name, Durchschnitt, Anzahl, letzter Sync"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": { "visible": true },
+    "content-type-builder": { "visible": true }
+  },
+  "attributes": {
+    "placeId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "displayName": { "type": "string" },
+    "rating": { "type": "decimal" },
+    "userRatingCount": { "type": "integer" },
+    "lastSyncedAt": { "type": "datetime" }
+  }
+}

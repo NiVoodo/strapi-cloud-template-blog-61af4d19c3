@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "google_reviews",
+  "info": {
+    "singularName": "google-review",
+    "pluralName": "google-reviews",
+    "displayName": "Google Review",
+    "description": "Einzelne Google-Bewertung (Places/GBP)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": { "visible": true },
+    "content-type-builder": { "visible": true }
+  },
+  "attributes": {
+    "externalId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "placeId": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": ["places", "gbp"],
+      "default": "places",
+      "required": true
+    },
+    "authorName": { "type": "string" },
+    "rating": { "type": "integer", "min": 1, "max": 5 },
+    "text": { "type": "richtext" },
+    "relativeTimeDescription": { "type": "string" },
+    "publishTime": { "type": "datetime" },
+    "languageCode": { "type": "string" },
+    "profilePhotoUrl": { "type": "string" }
+  }
+}
