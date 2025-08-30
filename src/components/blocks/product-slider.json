@@ -25,20 +25,23 @@
     },
     "sort": {
       "type": "string",
-      "required": false,
-      "description": "z. B. \"pp_verkaufspreis_von:desc\""
+      "required": false
     },
     "attributesToRetrieve": {
       "type": "json",
-      "required": false,
-      "description": "Optional: z. B. [\"p_id\",\"p_ean1\",\"googleshoppingtitle\",\"pp_verkaufspreis_von\",\"pp_sonderpreis\",\"p_marke_beschreibung\",\"url\",\"categories\"]"
+      "required": false
     },
     "maxItems": {
       "type": "integer",
+      "required": false,
       "default": 10,
       "min": 1,
-      "max": 10,
-      "required": false
+      "max": 10
+    },
+    "button": {
+      "type": "component",
+      "component": "blocks.button-group",
+      "repeatable": true
     }
   }
 }

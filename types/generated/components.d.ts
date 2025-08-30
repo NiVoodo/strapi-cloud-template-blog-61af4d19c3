@@ -260,6 +260,7 @@ export interface BlocksProductSlider extends Struct.ComponentSchema {
   };
   attributes: {
     attributesToRetrieve: Schema.Attribute.JSON;
+    button: Schema.Attribute.Component<'blocks.button-group', true>;
     filters: Schema.Attribute.Text;
     indexName: Schema.Attribute.String & Schema.Attribute.Required;
     maxItems: Schema.Attribute.Integer &
