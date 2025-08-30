@@ -251,6 +251,32 @@ export interface BlocksPricingTable extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksProductSlider extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_productsliders';
+  info: {
+    description: 'Zeigt bis zu 10 Produkte aus Meilisearch als Slider an.';
+    displayName: 'Product Slider';
+    icon: 'shopping-bag';
+  };
+  attributes: {
+    attributesToRetrieve: Schema.Attribute.JSON;
+    filters: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String & Schema.Attribute.Required;
+    maxItems: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<10>;
+    query: Schema.Attribute.String;
+    sort: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksRichtextColumn extends Struct.ComponentSchema {
   collectionName: 'components_blocks_richtext_column';
   info: {
@@ -465,6 +491,7 @@ declare module '@strapi/strapi' {
       'blocks.pricing-feature': BlocksPricingFeature;
       'blocks.pricing-plan': BlocksPricingPlan;
       'blocks.pricing-table': BlocksPricingTable;
+      'blocks.product-slider': BlocksProductSlider;
       'blocks.richtext-column': BlocksRichtextColumn;
       'blocks.richtext-columns': BlocksRichtextColumns;
       'blocks.stat-item': BlocksStatItem;

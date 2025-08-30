@@ -28,7 +28,8 @@
         "blocks.steps",
         "blocks.pricing-table",
         "blocks.google-reviews-slider",
-        "blocks.richtext-columns"
+        "blocks.richtext-columns",
+        "blocks.product-slider"
       ]
     }
   }

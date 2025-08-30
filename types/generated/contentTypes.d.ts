@@ -667,6 +667,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.pricing-table',
         'blocks.google-reviews-slider',
         'blocks.richtext-columns',
+        'blocks.product-slider',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
