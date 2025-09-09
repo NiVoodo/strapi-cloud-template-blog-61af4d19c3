@@ -509,20 +509,23 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
-    description: 'Define global settings';
-    displayName: 'Global';
+    description: 'Site-wide defaults and SEO fallbacks';
+    displayName: 'Global Settings';
     pluralName: 'globals';
     singularName: 'global';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
-    favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    defaultCanonicalBase: Schema.Attribute.String;
+    defaultMetaTitleSuffix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<' | Your Brand'>;
+    defaultShareImage: Schema.Attribute.Media<'images'>;
+    facebookAppId: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -530,8 +533,13 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    robotsDefaultNofollow: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    robotsDefaultNoindex: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    seoDefaults: Schema.Attribute.Component<'shared.seo', false>;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    twitterHandle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -677,6 +685,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

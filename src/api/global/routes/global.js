@@ -1,9 +1,16 @@
 'use strict';
 
-/**
- * global router.
- */
-
-const { createCoreRouter } = require('@strapi/strapi').factories;
-
-module.exports = createCoreRouter('api::global.global');
+module.exports = {
+  routes: [
+    {
+      method: 'GET',
+      path: '/global-public',
+      handler: 'global.public',
+      config: {
+        auth: false,
+        policies: [],
+        middlewares: [],
+      },
+    },
+  ],
+};
