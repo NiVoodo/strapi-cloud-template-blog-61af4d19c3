@@ -1,5 +1,30 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AdsAssetGroup extends Struct.ComponentSchema {
+  collectionName: 'components_ads_asset_groups';
+  info: {
+    description: 'Visuelle Variante einer Werbeanzeige (Bild, Video, Styling)';
+    displayName: 'Ad Asset Group';
+  };
+  attributes: {
+    altText: Schema.Attribute.String;
+    media: Schema.Attribute.Media<'images' | 'videos'>;
+    mobileMedia: Schema.Attribute.Media<'images' | 'videos'>;
+    name: Schema.Attribute.String;
+    overlayColor: Schema.Attribute.String;
+    overlayOpacity: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    textColor: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksAccordionFaq extends Struct.ComponentSchema {
   collectionName: 'components_blocks_accordion_faqs';
   info: {
@@ -488,6 +513,7 @@ export interface UiIconText extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'ads.asset-group': AdsAssetGroup;
       'blocks.accordion-faq': BlocksAccordionFaq;
       'blocks.accordion-item': BlocksAccordionItem;
       'blocks.button-group': BlocksButtonGroup;

@@ -402,6 +402,125 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAdPlacementAdPlacement extends Struct.CollectionTypeSchema {
+  collectionName: 'ad_placements';
+  info: {
+    description: 'Definiert Werbe-Positionen und Regeln f\u00FCr die Ausspielung';
+    displayName: 'Ad Placement';
+    pluralName: 'ad-placements';
+    singularName: 'ad-placement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    advertisements: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::advertisement.advertisement'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    filters: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String;
+    limit: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ad-placement.ad-placement'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    position: Schema.Attribute.Enumeration<
+      [
+        'blog-between-posts',
+        'blog-sidebar',
+        'homepage-hero-after',
+        'product-list-tile',
+        'search-dropdown',
+        'product-detail-page',
+      ]
+    > &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    query: Schema.Attribute.String;
+    sort: Schema.Attribute.String;
+    strategy: Schema.Attribute.Enumeration<
+      ['random', 'weighted-random', 'sequential', 'all']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'random'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAdvertisementAdvertisement
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'advertisements';
+  info: {
+    description: 'Werbe-Kacheln und Banner f\u00FCr die Injection durch das Frontend';
+    displayName: 'Advertisement';
+    pluralName: 'advertisements';
+    singularName: 'advertisement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    assetGroups: Schema.Attribute.Component<'ads.asset-group', true>;
+    buttonColor: Schema.Attribute.String;
+    buttonLabel: Schema.Attribute.String;
+    buttonTextColor: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eyebrow: Schema.Attribute.String;
+    filters: Schema.Attribute.Text;
+    htmlSnippet: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String;
+    link: Schema.Attribute.String;
+    linkTarget: Schema.Attribute.Enumeration<['_self', '_blank']> &
+      Schema.Attribute.DefaultTo<'_self'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::advertisement.advertisement'
+    > &
+      Schema.Attribute.Private;
+    paragraph: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    query: Schema.Attribute.String;
+    sort: Schema.Attribute.String;
+    subHeadline: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['tile', 'banner', 'fullwidth']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'tile'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    validFrom: Schema.Attribute.DateTime;
+    validUntil: Schema.Attribute.DateTime;
+    weight: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+  };
+}
+
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -416,16 +535,36 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   attributes: {
     author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
     blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
+      [
+        'shared.rich-text',
+        'shared.media',
+        'shared.quote',
+        'shared.slider',
+        'blocks.hero-banner',
+        'blocks.media-text',
+        'blocks.button-group',
+        'blocks.card-grid',
+        'blocks.feature-list',
+        'blocks.accordion-faq',
+        'blocks.logo-cloud',
+        'blocks.testimonial',
+        'blocks.cta-banner',
+        'blocks.stats',
+        'blocks.steps',
+        'blocks.pricing-table',
+        'blocks.google-reviews-slider',
+        'blocks.richtext-columns',
+        'blocks.product-slider',
+      ]
     >;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
-    cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    cover: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
+        maxLength: 160;
       }>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -434,8 +573,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1235,6 +1375,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
+      'api::ad-placement.ad-placement': ApiAdPlacementAdPlacement;
+      'api::advertisement.advertisement': ApiAdvertisementAdvertisement;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;

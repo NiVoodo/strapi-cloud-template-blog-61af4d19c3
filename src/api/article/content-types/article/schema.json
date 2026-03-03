@@ -13,21 +13,23 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "text",
-      "maxLength": 80
+      "maxLength": 160
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title",
+      "required": true
     },
     "cover": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "files", "videos"]
+      "allowedTypes": ["images"]
     },
     "author": {
       "type": "relation",
@@ -43,7 +45,32 @@
     },
     "blocks": {
       "type": "dynamiczone",
-      "components": ["shared.media", "shared.quote", "shared.rich-text", "shared.slider"]
+      "components": [
+        "shared.rich-text",
+        "shared.media",
+        "shared.quote",
+        "shared.slider",
+        "blocks.hero-banner",
+        "blocks.media-text",
+        "blocks.button-group",
+        "blocks.card-grid",
+        "blocks.feature-list",
+        "blocks.accordion-faq",
+        "blocks.logo-cloud",
+        "blocks.testimonial",
+        "blocks.cta-banner",
+        "blocks.stats",
+        "blocks.steps",
+        "blocks.pricing-table",
+        "blocks.google-reviews-slider",
+        "blocks.richtext-columns",
+        "blocks.product-slider"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

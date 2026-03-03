@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_ads_asset_groups",
+  "info": {
+    "displayName": "Ad Asset Group",
+    "description": "Visuelle Variante einer Werbeanzeige (Bild, Video, Styling)"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos"]
+    },
+    "mobileMedia": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos"]
+    },
+    "altText": {
+      "type": "string"
+    },
+    "overlayOpacity": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    },
+    "overlayColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    }
+  }
+}

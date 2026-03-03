@@ -2,4 +2,4 @@
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::article.article');
+module.exports = createCoreRouter('api::ad-placement.ad-placement');

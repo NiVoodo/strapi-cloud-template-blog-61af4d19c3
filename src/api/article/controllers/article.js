@@ -1,9 +1,145 @@
 'use strict';
 
 /**
- *  article controller
+ * Article controller – Deep-Populate + custom endpoints.
+ * Endpoints:
+ *   GET /api/articles/by-slug/:slug?status=published|draft&depth=4
+ *   GET /api/articles/slugs?status=published|draft
  */
 
-const { createCoreController } = require('@strapi/strapi').factories;
+const { factories } = require('@strapi/strapi');
 
-module.exports = createCoreController('api::article.article');
+const isObject = (v) => v && typeof v === 'object' && !Array.isArray(v);
+const getAttrs = (model) => (model?.attributes || model?.schema?.attributes || {});
+const ONE_LEVEL = Object.freeze({});
+
+function buildPopulateForComponent(strapi, compUid, options = {}) {
+  const { maxDepth = 4, seen = new Set() } = options;
+  if (!compUid || seen.has(compUid) || maxDepth <= 0) return ONE_LEVEL;
+  seen.add(compUid);
+
+  const comp = strapi.components?.[compUid];
+  const attrs = getAttrs(comp);
+  if (!comp || !isObject(attrs)) return ONE_LEVEL;
+
+  const populate = {};
+
+  for (const [name, attr] of Object.entries(attrs)) {
+    if (!isObject(attr)) continue;
+
+    switch (attr.type) {
+      case 'media':
+      case 'relation':
+        populate[name] = ONE_LEVEL;
+        break;
+      case 'component': {
+        const child = buildPopulateForComponent(strapi, attr.component, {
+          maxDepth: maxDepth - 1,
+          seen,
+        });
+        populate[name] = { populate: child };
+        break;
+      }
+      case 'dynamiczone': {
+        const comps = Array.isArray(attr.components) ? attr.components : [];
+        const on = {};
+        for (const cUid of comps) {
+          const child = buildPopulateForComponent(strapi, cUid, {
+            maxDepth: maxDepth - 1,
+            seen,
+          });
+          on[cUid] = Object.keys(child).length ? { populate: child } : {};
+        }
+        if (Object.keys(on).length) populate[name] = { on };
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  return Object.keys(populate).length ? populate : ONE_LEVEL;
+}
+
+function buildPopulateForContentType(strapi, ctUid, options = {}) {
+  const { maxDepth = 4 } = options;
+  const ct = strapi.contentTypes?.[ctUid];
+  const attrs = getAttrs(ct);
+  if (!ct || !isObject(attrs)) return {};
+
+  const populate = {};
+
+  for (const [name, attr] of Object.entries(attrs)) {
+    if (!isObject(attr)) continue;
+
+    switch (attr.type) {
+      case 'media':
+      case 'relation':
+        populate[name] = ONE_LEVEL;
+        break;
+      case 'component': {
+        const child = buildPopulateForComponent(strapi, attr.component, {
+          maxDepth: maxDepth - 1,
+          seen: new Set(),
+        });
+        populate[name] = { populate: child };
+        break;
+      }
+      case 'dynamiczone': {
+        const comps = Array.isArray(attr.components) ? attr.components : [];
+        const on = {};
+        for (const cUid of comps) {
+          const child = buildPopulateForComponent(strapi, cUid, {
+            maxDepth: maxDepth - 1,
+            seen: new Set(),
+          });
+          on[cUid] = Object.keys(child).length ? { populate: child } : {};
+        }
+        if (Object.keys(on).length) populate[name] = { on };
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  return populate;
+}
+
+module.exports = factories.createCoreController('api::article.article', ({ strapi }) => ({
+  async bySlug(ctx) {
+    const { slug } = ctx.params;
+    if (!slug) return ctx.badRequest('Missing slug');
+
+    const status = ctx.query.status === 'draft' ? 'draft' : 'published';
+    const depthParam = Number(ctx.query.depth);
+    const maxDepth = Number.isFinite(depthParam) && depthParam > 0 ? Math.min(depthParam, 8) : 4;
+
+    const populate = buildPopulateForContentType(strapi, 'api::article.article', { maxDepth });
+
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        strapi.log.debug(`[article.bySlug] populate => ${JSON.stringify(populate)}`);
+      } catch { /* no-op */ }
+    }
+
+    const article = await strapi.documents('api::article.article').findFirst({
+      status,
+      filters: { slug: { $eq: slug } },
+      populate,
+    });
+
+    if (!article) return ctx.notFound('Article not found');
+    ctx.body = article;
+  },
+
+  async slugs(ctx) {
+    const status = ctx.query.status === 'draft' ? 'draft' : 'published';
+    const res = await strapi.documents('api::article.article').findMany({
+      status,
+      fields: ['slug', 'updatedAt'],
+      limit: 10000,
+    });
+    ctx.body = res.map((a) => ({ slug: a.slug, updatedAt: a.updatedAt }));
+  },
+}));

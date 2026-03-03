@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advertisements",
+  "info": {
+    "singularName": "advertisement",
+    "pluralName": "advertisements",
+    "displayName": "Advertisement",
+    "description": "Werbe-Kacheln und Banner f\u00fcr die Injection durch das Frontend"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["tile", "banner", "fullwidth"],
+      "default": "tile",
+      "required": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "subHeadline": {
+      "type": "string"
+    },
+    "paragraph": {
+      "type": "text"
+    },
+    "buttonLabel": {
+      "type": "string"
+    },
+    "buttonColor": {
+      "type": "string"
+    },
+    "buttonTextColor": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "linkTarget": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "htmlSnippet": {
+      "type": "text"
+    },
+    "weight": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
+    "validFrom": {
+      "type": "datetime"
+    },
+    "validUntil": {
+      "type": "datetime"
+    },
+    "assetGroups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ads.asset-group"
+    },
+    "indexName": {
+      "type": "string",
+      "required": false
+    },
+    "query": {
+      "type": "string",
+      "required": false
+    },
+    "filters": {
+      "type": "text",
+      "required": false
+    },
+    "sort": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

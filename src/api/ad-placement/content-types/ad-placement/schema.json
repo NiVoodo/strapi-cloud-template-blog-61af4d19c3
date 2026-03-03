@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ad_placements",
+  "info": {
+    "singularName": "ad-placement",
+    "pluralName": "ad-placements",
+    "displayName": "Ad Placement",
+    "description": "Definiert Werbe-Positionen und Regeln f\u00fcr die Ausspielung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "blog-between-posts",
+        "blog-sidebar",
+        "homepage-hero-after",
+        "product-list-tile",
+        "search-dropdown",
+        "product-detail-page"
+      ],
+      "required": true
+    },
+    "strategy": {
+      "type": "enumeration",
+      "enum": ["random", "weighted-random", "sequential", "all"],
+      "default": "random",
+      "required": true
+    },
+    "limit": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
+    "advertisements": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::advertisement.advertisement"
+    },
+    "indexName": {
+      "type": "string",
+      "required": false
+    },
+    "query": {
+      "type": "string",
+      "required": false
+    },
+    "filters": {
+      "type": "text",
+      "required": false
+    },
+    "sort": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
