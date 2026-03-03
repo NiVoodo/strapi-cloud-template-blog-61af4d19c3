@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_blocks_article_sliders",
+  "info": {
+    "displayName": "Article Slider",
+    "description": "Zeigt Blog-Artikel als horizontalen Slider an"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 6,
+      "min": 1,
+      "max": 20
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "indexName": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "filters": {
+      "type": "text"
+    },
+    "sort": {
+      "type": "string"
+    }
+  }
+}

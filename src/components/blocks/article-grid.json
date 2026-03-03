@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_blocks_article_grids",
+  "info": {
+    "displayName": "Article Grid",
+    "description": "Artikel-Grid mit Pagination – geeignet f\u00fcr /blog oder /news Seiten"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "pageSize": {
+      "type": "integer",
+      "default": 12,
+      "min": 1,
+      "max": 48
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "showCategoryFilter": {
+      "type": "boolean",
+      "default": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "indexName": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "filters": {
+      "type": "text"
+    },
+    "sort": {
+      "type": "string"
+    }
+  }
+}

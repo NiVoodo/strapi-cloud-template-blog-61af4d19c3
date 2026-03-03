@@ -50,6 +50,87 @@ export interface BlocksAccordionItem extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksArticleGrid extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_article_grids';
+  info: {
+    description: 'Artikel-Grid mit Pagination \u2013 geeignet f\u00FCr /blog oder /news Seiten';
+    displayName: 'Article Grid';
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    eyebrow: Schema.Attribute.String;
+    filters: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String;
+    pageSize: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 48;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<12>;
+    query: Schema.Attribute.String;
+    showCategoryFilter: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    showPagination: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    sort: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksArticleList extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_article_lists';
+  info: {
+    description: 'Artikel als vertikale Liste';
+    displayName: 'Article List';
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    eyebrow: Schema.Attribute.String;
+    filters: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String;
+    limit: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 50;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<10>;
+    query: Schema.Attribute.String;
+    sort: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksArticleSlider extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_article_sliders';
+  info: {
+    description: 'Zeigt Blog-Artikel als horizontalen Slider an';
+    displayName: 'Article Slider';
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    eyebrow: Schema.Attribute.String;
+    filters: Schema.Attribute.Text;
+    indexName: Schema.Attribute.String;
+    limit: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<6>;
+    query: Schema.Attribute.String;
+    sort: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksButtonGroup extends Struct.ComponentSchema {
   collectionName: 'components_blocks_button_groups';
   info: {
@@ -516,6 +597,9 @@ declare module '@strapi/strapi' {
       'ads.asset-group': AdsAssetGroup;
       'blocks.accordion-faq': BlocksAccordionFaq;
       'blocks.accordion-item': BlocksAccordionItem;
+      'blocks.article-grid': BlocksArticleGrid;
+      'blocks.article-list': BlocksArticleList;
+      'blocks.article-slider': BlocksArticleSlider;
       'blocks.button-group': BlocksButtonGroup;
       'blocks.card-grid': BlocksCardGrid;
       'blocks.card-item': BlocksCardItem;

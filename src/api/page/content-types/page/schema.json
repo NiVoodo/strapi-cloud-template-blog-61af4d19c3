@@ -29,7 +29,10 @@
         "blocks.pricing-table",
         "blocks.google-reviews-slider",
         "blocks.richtext-columns",
-        "blocks.product-slider"
+        "blocks.product-slider",
+        "blocks.article-slider",
+        "blocks.article-grid",
+        "blocks.article-list"
       ]
     },
         "seo": {

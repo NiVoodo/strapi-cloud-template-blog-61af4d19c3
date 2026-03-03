@@ -555,6 +555,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
         'blocks.google-reviews-slider',
         'blocks.richtext-columns',
         'blocks.product-slider',
+        'blocks.article-slider',
+        'blocks.article-grid',
+        'blocks.article-list',
       ]
     >;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
@@ -816,6 +819,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.google-reviews-slider',
         'blocks.richtext-columns',
         'blocks.product-slider',
+        'blocks.article-slider',
+        'blocks.article-grid',
+        'blocks.article-list',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
