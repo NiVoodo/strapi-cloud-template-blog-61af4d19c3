@@ -539,6 +539,18 @@ export interface SharedRichText extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedRichTextHtml extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rich_text_htmls';
+  info: {
+    description: 'Strapi Blocks Editor \u2013 strukturiertes HTML, kein Markdown';
+    displayName: 'Rich Text (HTML)';
+    icon: 'align-justify';
+  };
+  attributes: {
+    body: Schema.Attribute.Blocks;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -626,6 +638,7 @@ declare module '@strapi/strapi' {
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
+      'shared.rich-text-html': SharedRichTextHtml;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
       'ui.icon-text': UiIconText;

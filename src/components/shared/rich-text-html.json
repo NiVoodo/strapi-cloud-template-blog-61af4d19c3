@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_rich_text_htmls",
+  "info": {
+    "displayName": "Rich Text (HTML)",
+    "icon": "align-justify",
+    "description": "Strapi Blocks Editor – strukturiertes HTML, kein Markdown"
+  },
+  "options": {},
+  "attributes": {
+    "body": {
+      "type": "blocks"
+    }
+  }
+}

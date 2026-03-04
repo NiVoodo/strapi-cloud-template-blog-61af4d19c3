@@ -46,6 +46,7 @@
     "blocks": {
       "type": "dynamiczone",
       "components": [
+        "shared.rich-text-html",
         "shared.rich-text",
         "shared.media",
         "shared.quote",
