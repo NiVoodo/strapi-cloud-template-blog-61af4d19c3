@@ -31,9 +31,33 @@ function buildPopulateForComponent(strapi, compUid, options = {}) {
     if (!isObject(attr)) continue;
 
     switch (attr.type) {
-      case 'media':
-      case 'relation': {
+      case 'media': {
         populate[name] = ONE_LEVEL;
+        break;
+      }
+      case 'relation': {
+        if (maxDepth > 1 && attr.target) {
+          const targetModel =
+            strapi.contentTypes?.[attr.target] ||
+            strapi.components?.[attr.target];
+          const targetAttrs = getAttrs(targetModel);
+          if (targetModel && isObject(targetAttrs)) {
+            const relPopulate = {};
+            for (const [tName, tAttr] of Object.entries(targetAttrs)) {
+              if (!isObject(tAttr)) continue;
+              if (tAttr.type === 'media' || tAttr.type === 'relation') {
+                relPopulate[tName] = ONE_LEVEL;
+              }
+            }
+            populate[name] = Object.keys(relPopulate).length
+              ? { populate: relPopulate }
+              : ONE_LEVEL;
+          } else {
+            populate[name] = ONE_LEVEL;
+          }
+        } else {
+          populate[name] = ONE_LEVEL;
+        }
         break;
       }
       case 'component': {

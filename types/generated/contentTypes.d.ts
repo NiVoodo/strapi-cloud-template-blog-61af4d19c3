@@ -806,6 +806,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     blocks: Schema.Attribute.DynamicZone<
       [
         'blocks.hero-banner',
+        'blocks.hero-slider',
         'blocks.media-text',
         'blocks.button-group',
         'blocks.card-grid',

@@ -114,8 +114,6 @@ export interface BlocksArticleSlider extends Struct.ComponentSchema {
   attributes: {
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     eyebrow: Schema.Attribute.String;
-    filters: Schema.Attribute.Text;
-    indexName: Schema.Attribute.String;
     limit: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -125,9 +123,23 @@ export interface BlocksArticleSlider extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<6>;
-    query: Schema.Attribute.String;
-    sort: Schema.Attribute.String;
+    slides: Schema.Attribute.Component<'blocks.article-slider-slide', true>;
     title: Schema.Attribute.String;
+    variant: Schema.Attribute.Enumeration<
+      ['', 'Full Bleed Cardslider', 'Full bleed Posterslider', 'Slider']
+    >;
+  };
+}
+
+export interface BlocksArticleSliderSlide extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_article_slider_slides';
+  info: {
+    description: 'Single slide with a manually selected article and button text';
+    displayName: 'Article Slider Slide';
+  };
+  attributes: {
+    article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
+    buttonText: Schema.Attribute.String;
   };
 }
 
@@ -260,6 +272,49 @@ export interface BlocksHeroBanner extends Struct.ComponentSchema {
   info: {
     description: 'Large visual header with copy & CTAs';
     displayName: 'Hero Banner';
+  };
+  attributes: {
+    align: Schema.Attribute.Enumeration<['left', 'center', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
+    buttons: Schema.Attribute.Component<'shared.button', true>;
+    eyebrow: Schema.Attribute.String;
+    media: Schema.Attribute.Media<'images'>;
+    overlay: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    richText: Schema.Attribute.RichText;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksHeroSlider extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_hero_sliders';
+  info: {
+    description: 'Large visual header slider with multiple slides, copy & CTAs';
+    displayName: 'Hero Slider';
+  };
+  attributes: {
+    autoplay: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    interval: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5000>;
+    loop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showArrows: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showDots: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    slides: Schema.Attribute.Component<'blocks.hero-slider-slide', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    variant: Schema.Attribute.Enumeration<
+      ['', 'Full Bleed Cardslider', 'Full bleed Posterslider', 'Slider']
+    >;
+  };
+}
+
+export interface BlocksHeroSliderSlide extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_hero_slider_slides';
+  info: {
+    description: 'Single slide for the Hero Slider';
+    displayName: 'Hero Slider Slide';
   };
   attributes: {
     align: Schema.Attribute.Enumeration<['left', 'center', 'right']> &
@@ -612,6 +667,7 @@ declare module '@strapi/strapi' {
       'blocks.article-grid': BlocksArticleGrid;
       'blocks.article-list': BlocksArticleList;
       'blocks.article-slider': BlocksArticleSlider;
+      'blocks.article-slider-slide': BlocksArticleSliderSlide;
       'blocks.button-group': BlocksButtonGroup;
       'blocks.card-grid': BlocksCardGrid;
       'blocks.card-item': BlocksCardItem;
@@ -620,6 +676,8 @@ declare module '@strapi/strapi' {
       'blocks.feature-list': BlocksFeatureList;
       'blocks.google-reviews-slider': BlocksGoogleReviewsSlider;
       'blocks.hero-banner': BlocksHeroBanner;
+      'blocks.hero-slider': BlocksHeroSlider;
+      'blocks.hero-slider-slide': BlocksHeroSliderSlide;
       'blocks.logo-cloud': BlocksLogoCloud;
       'blocks.logo-item': BlocksLogoItem;
       'blocks.media-text': BlocksMediaText;

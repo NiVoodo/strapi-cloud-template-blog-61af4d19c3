@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_blocks_hero_sliders",
+  "info": {
+    "displayName": "Hero Slider",
+    "description": "Large visual header slider with multiple slides, copy & CTAs"
+  },
+  "options": {},
+  "attributes": {
+    "slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.hero-slider-slide",
+      "min": 1
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "interval": {
+      "type": "integer",
+      "default": 5000
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": true
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": ["", "Full Bleed Cardslider", "Full bleed Posterslider", "Slider"],
+      "required": false
+    }
+  }
+}

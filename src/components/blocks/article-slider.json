@@ -23,17 +23,15 @@
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "indexName": {
-      "type": "string"
+    "variant": {
+      "type": "enumeration",
+      "enum": ["", "Full Bleed Cardslider", "Full bleed Posterslider", "Slider"],
+      "required": false
     },
-    "query": {
-      "type": "string"
-    },
-    "filters": {
-      "type": "text"
-    },
-    "sort": {
-      "type": "string"
+    "slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.article-slider-slide"
     }
   }
 }

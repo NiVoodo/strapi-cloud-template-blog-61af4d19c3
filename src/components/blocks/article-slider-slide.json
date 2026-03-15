@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_article_slider_slides",
+  "info": {
+    "displayName": "Article Slider Slide",
+    "description": "Single slide with a manually selected article and button text"
+  },
+  "options": {},
+  "attributes": {
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "buttonText": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_blocks_hero_slider_slides",
+  "info": {
+    "displayName": "Hero Slider Slide",
+    "description": "Single slide for the Hero Slider"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "richText": {
+      "type": "richtext"
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "overlay": {
+      "type": "boolean",
+      "default": false
+    },
+    "align": {
+      "type": "enumeration",
+      "enum": ["left", "center", "right"],
+      "default": "left"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.button"
+    }
+  }
+}
